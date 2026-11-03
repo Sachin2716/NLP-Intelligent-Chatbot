@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart NLP Chatbot | Local 5-Technique NLP Engine</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="dark-theme">
+    <div class="app-layout">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar-left" id="sidebarLeft">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-logo-container">
+                        <div class="logo-glow"></div>
+                        <div class="brand-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+                                <path d="M12 6v6l4 2"/>
+                                <circle cx="12" cy="12" r="3" fill="#8B5CF6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="brand-info">
+                        <h2>Smart NLP</h2>
+                        <span class="brand-badge">Local Engine</span>
+                    </div>
+                </div>
+                <button class="mobile-close-btn" id="closeSidebarLeft" aria-label="Close Sidebar">✕</button>
+            </div>
+
+            <div class="sidebar-actions">
+                <button class="btn btn-primary new-chat-btn" id="newChatBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>New Chat</span>
+                </button>
+            </div>
+
+            <!-- CHAT HISTORY SECTION -->
+            <div class="sidebar-section history-section">
+                <div class="section-title">
+                    <span>Recent Session Queries</span>
+                    <span class="count-badge" id="historyCount">0</span>
+                </div>
+                <ul class="history-list" id="historyList">
+                    <li class="history-empty">No queries yet in this session.</li>
+                </ul>
+            </div>
+
+            <!-- NLP TECHNIQUES OVERVIEW -->
+            <div class="sidebar-section nlp-menu-section">
+                <div class="section-title">
+                    <span>5 NLP Techniques</span>
+                </div>
+                <ul class="nlp-techniques-list">
+                    <li class="tech-item" data-query="Explain tokenization in NLP">
+                        <span class="tech-bullet bullet-purple">1</span>
+                        <div class="tech-meta">
+                            <strong>Tokenization</strong>
+                            <small>NLTK Word & Punctuation</small>
+                        </div>
+                    </li>
+                    <li class="tech-item" data-query="Explain stemming with PorterStemmer">
+                        <span class="tech-bullet bullet-blue">2</span>
+                        <div class="tech-meta">
+                            <strong>Stemming</strong>
+                            <small>Porter Stemmer Algorithm</small>
+                        </div>
+                    </li>
+                    <li class="tech-item" data-query="Explain lemmatization with WordNet and POS">
+                        <span class="tech-bullet bullet-cyan">3</span>
+                        <div class="tech-meta">
+                            <strong>Lemmatization</strong>
+                            <small>WordNet + POS Tagging</small>
+                        </div>
+                    </li>
+                    <li class="tech-item" data-query="Explain Named Entity Recognition (NER)">
+                        <span class="tech-bullet bullet-emerald">4</span>
+                        <div class="tech-meta">
+                            <strong>Named Entity Rec.</strong>
+                            <small>7 Semantic Classes</small>
+                        </div>
+                    </li>
+                    <li class="tech-item" data-query="Explain sentiment analysis with VADER">
+                        <span class="tech-bullet bullet-amber">5</span>
+                        <div class="tech-meta">
+                            <strong>Sentiment Analysis</strong>
+                            <small>VADER Polarity & Compound</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ABOUT & STATUS FOOTER -->
+            <div class="sidebar-footer">
+                <div class="privacy-badge">
+                    <span class="pulse-dot"></span>
+                    <span>100% Offline & Private</span>
+                </div>
+                <p class="footer-note">No external APIs &bull; NLTK & spaCy</p>
+            </div>
+        </aside>
+
+        <!-- MAIN CHAT AREA -->
+        <main class="main-chat-container">
+            <!-- TOP APP BAR -->
+            <header class="chat-header">
+                <div class="header-left">
+                    <button class="icon-btn mobile-menu-btn" id="openSidebarLeft" aria-label="Open Sidebar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="header-title-box">
+                        <h1>Smart NLP Assistant</h1>
+                        <div class="connection-status">
+                            <span class="status-indicator"></span>
+                            <span class="status-text">All 5 NLP Modules Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <button class="icon-btn" id="clearChatBtn" title="Clear Conversation">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span class="btn-label-desktop">Clear</span>
+                    </button>
+                    <button class="icon-btn toggle-panel-btn" id="togglePanelBtn" title="Toggle Live NLP Dashboard">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="15" y1="3" x2="15" y2="21"></line>
+                        </svg>
+                        <span class="btn-label-desktop">NLP Panel</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- MESSAGES CONTAINER -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- WELCOME HERO (Visible initially) -->
+                <div class="welcome-hero" id="welcomeHero">
+                    <div class="hero-icon-bubble">
+                        <div class="bubble-ring"></div>
+                        <span class="bubble-emoji">🤖</span>
+                    </div>
+                    <h2>Welcome to Smart NLP Chatbot</h2>
+                    <p class="hero-desc">
+                        Every message you type is processed in real time across five core Natural Language Processing techniques.
+                        Zero cloud dependencies, zero external APIs, 100% local computing.
+                    </p>
+
+                    <div class="hero-chips-container">
+                        <div class="chips-title">Try these benchmark test examples:</div>
+                        <div class="prompt-chips">
+                            <button class="chip-btn" data-text="Hello, how are you?">
+                                💬 "Hello, how are you?"
+                            </button>
+                            <button class="chip-btn" data-text="Sachin is studying Artificial Intelligence in Bengaluru.">
+                                🎓 "Sachin is studying Artificial Intelligence in Bengaluru."
+                            </button>
+                            <button class="chip-btn" data-text="I am very happy because I got a new job.">
+                                🎉 "I am very happy because I got a new job."
+                            </button>
+                            <button class="chip-btn" data-text="This product is very bad and disappointing.">
+                                ⚠️ "This product is very bad and disappointing."
+                            </button>
+                            <button class="chip-btn" data-text="The children are playing football.">
+                                ⚽ "The children are playing football."
+                            </button>
+                            <button class="chip-btn" data-text="Google is an organization based in the technology industry.">
+                                🏢 "Google is an organization based in the technology industry."
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TYPING INDICATOR -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="bot-avatar-tiny">🤖</div>
+                <div class="typing-bubble">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <span class="typing-text">NLP engine processing tokens...</span>
+            </div>
+
+            <!-- CHAT INPUT COMPOSER -->
+            <div class="chat-input-wrapper">
+                <form class="chat-form" id="chatForm">
+                    <div class="input-container">
+                        <textarea 
+                            id="userInput" 
+                            placeholder="Type a sentence to chat and analyze (e.g., 'Sachin lives in Bengaluru and works at Google.')..." 
+                            rows="1" 
+                            maxlength="1500" 
+                            required></textarea>
+                        
+                        <div class="input-controls">
+                            <span class="char-counter" id="charCounter">0 / 1500</span>
+                            <button type="submit" class="send-btn" id="sendBtn" title="Send Message (Enter)">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-hint">
+                        <span>Press <strong>Enter</strong> to send &bull; <strong>Shift + Enter</strong> for new line</span>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!-- RIGHT SIDE PANEL: LIVE NLP DASHBOARD -->
+        <aside class="panel-right" id="panelRight">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <div class="panel-icon">📊</div>
+                    <div>
+                        <h3>Live NLP Dashboard</h3>
+                        <span class="panel-subtitle" id="nlpStatusText">Awaiting input</span>
+                    </div>
+                </div>
+                <div class="panel-actions">
+                    <button class="copy-full-btn" id="copyJsonBtn" title="Copy Complete NLP JSON Payload">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>JSON</span>
+                    </button>
+                    <button class="close-panel-btn" id="closePanelBtn" aria-label="Close NLP Panel">✕</button>
+                </div>
+            </div>
+
+            <!-- PROCESSED MESSAGE BANNER -->
+            <div class="active-query-card" id="activeQueryCard" style="display: none;">
+                <span class="query-label">Analyzed Input:</span>
+                <p class="query-content" id="activeQueryText"></p>
+            </div>
+
+            <!-- DASHBOARD CARDS SCROLLER -->
+            <div class="dashboard-cards" id="dashboardCards">
+                
+                <!-- CARD 1: TOKENIZATION -->
+                <div class="nlp-card" id="cardTokenization">
+                    <div class="card-header" onclick="toggleCard('cardTokenization')">
+                        <div class="card-title-group">
+                            <span class="card-badge badge-token">1</span>
+                            <h4>Tokenization</h4>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="card-stat-pill" id="tokenCountBadge">0 tokens</span>
+                            <span class="expand-chevron">▾</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Segments sentence into individual word and punctuation units using NLTK.</p>
+                        <div class="token-summary-row">
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Words</span>
+                                <span class="mini-stat-val" id="tokenWordsCount">0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Punctuation</span>
+                                <span class="mini-stat-val" id="tokenPunctCount">0</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-label">Total</span>
+                                <span class="mini-stat-val" id="tokenTotalCount">0</span>
+                            </div>
+                        </div>
+                        <div class="token-chips-wrapper" id="tokenChipsContainer">
+                            <div class="empty-state-card">Send a message to view tokens.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: STEMMING -->
+                <div class="nlp-card" id="cardStemming">
+                    <div class="card-header" onclick="toggleCard('cardStemming')">
+                        <div class="card-title-group">
+                            <span class="card-badge badge-stem">2</span>
+                            <h4>Stemming</h4>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="card-stat-pill" id="stemChangedBadge">0 changed</span>
+                            <span class="expand-chevron">▾</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Reduces inflected words to root stems using Porter's algorithm (PorterStemmer).</p>
+                        <div class="table-responsive">
+                            <table class="nlp-table" id="stemmingTable">
+                                <thead>
+                                    <tr>
+                                        <th>Original</th>
+                                        <th>Stemmed Result</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" class="table-empty">Send a message to view stemming results.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: LEMMATIZATION -->
+                <div class="nlp-card" id="cardLemmatization">
+                    <div class="card-header" onclick="toggleCard('cardLemmatization')">
+                        <div class="card-title-group">
+                            <span class="card-badge badge-lemma">3</span>
+                            <h4>Lemmatization</h4>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="card-stat-pill" id="lemmaChangedBadge">0 changed</span>
+                            <span class="expand-chevron">▾</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Converts words to canonical dictionary base forms using WordNet & POS tags.</p>
+                        <div class="table-responsive">
+                            <table class="nlp-table" id="lemmatizationTable">
+                                <thead>
+                                    <tr>
+                                        <th>Original</th>
+                                        <th>POS</th>
+                                        <th>Lemma (Base)</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="table-empty">Send a message to view lemmatization results.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: NAMED ENTITY RECOGNITION -->
+                <div class="nlp-card" id="cardNer">
+                    <div class="card-header" onclick="toggleCard('cardNer')">
+                        <div class="card-title-group">
+                            <span class="card-badge badge-ner">4</span>
+                            <h4>Named Entity Recognition</h4>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="card-stat-pill" id="nerCountBadge">0 entities</span>
+                            <span class="expand-chevron">▾</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Detects PERSON, LOCATION, ORGANIZATION, DATE, TIME, MONEY, and PERCENTAGE.</p>
+                        
+                        <!-- Highlighted Text Display -->
+                        <div class="ner-highlight-box" id="nerHighlightBox">
+                            <span class="empty-state-card">Send a message to detect named entities.</span>
+                        </div>
+
+                        <!-- Detected Entities List -->
+                        <div class="ner-entities-list" id="nerEntitiesList">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <!-- Entity Color Legend -->
+                        <div class="ner-legend">
+                            <span class="legend-chip legend-person">👤 PERSON</span>
+                            <span class="legend-chip legend-location">📍 LOCATION</span>
+                            <span class="legend-chip legend-org">🏢 ORGANIZATION</span>
+                            <span class="legend-chip legend-date">📅 DATE</span>
+                            <span class="legend-chip legend-time">⏰ TIME</span>
+                            <span class="legend-chip legend-money">💰 MONEY</span>
+                            <span class="legend-chip legend-percent">📊 PERCENTAGE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 5: SENTIMENT ANALYSIS -->
+                <div class="nlp-card" id="cardSentiment">
+                    <div class="card-header" onclick="toggleCard('cardSentiment')">
+                        <div class="card-title-group">
+                            <span class="card-badge badge-sentiment">5</span>
+                            <h4>Sentiment Analysis</h4>
+                        </div>
+                        <div class="card-header-right">
+                            <span class="card-stat-pill" id="sentimentBadge">NEUTRAL</span>
+                            <span class="expand-chevron">▾</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">Evaluates polarity and compound emotional valence using NLTK VADER.</p>
+                        
+                        <!-- Sentiment Overall Banner -->
+                        <div class="sentiment-banner" id="sentimentBanner">
+                            <div class="sentiment-icon" id="sentimentIcon">😐</div>
+                            <div class="sentiment-details">
+                                <h5 id="sentimentCategory">NEUTRAL</h5>
+                                <span class="sentiment-compound" id="sentimentCompound">Compound Score: 0.0000</span>
+                                <small class="sentiment-mood" id="sentimentMood">Balanced / Neutral</small>
+                            </div>
+                        </div>
+
+                        <!-- Sentiment Meters -->
+                        <div class="sentiment-bars">
+                            <div class="bar-group">
+                                <div class="bar-header">
+                                    <span class="bar-label text-green">Positive (pos)</span>
+                                    <span class="bar-val" id="posScoreVal">0.0%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill-green" id="posScoreBar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar-header">
+                                    <span class="bar-label text-blue">Neutral (neu)</span>
+                                    <span class="bar-val" id="neuScoreVal">100.0%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill-blue" id="neuScoreBar" style="width: 100%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar-header">
+                                    <span class="bar-label text-red">Negative (neg)</span>
+                                    <span class="bar-val" id="negScoreVal">0.0%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill-red" id="negScoreBar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toast">Copied to clipboard!</div>
+
+    <!-- SCRIPT -->
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
