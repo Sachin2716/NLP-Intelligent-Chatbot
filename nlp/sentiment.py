@@ -118,6 +118,15 @@ def analyze_sentiment(text: str) -> dict:
     scores = None
     method = "vader"
 
+    global _VADER_ANALYZER, _VADER_AVAILABLE
+    if not _VADER_AVAILABLE or _VADER_ANALYZER is None:
+        try:
+            from nltk.sentiment.vader import SentimentIntensityAnalyzer
+            _VADER_ANALYZER = SentimentIntensityAnalyzer()
+            _VADER_AVAILABLE = True
+        except Exception:
+            pass
+
     if _VADER_AVAILABLE and _VADER_ANALYZER is not None:
         try:
             scores = _VADER_ANALYZER.polarity_scores(raw_text)

@@ -2,19 +2,17 @@
 
 An intelligent, interactive Natural Language Processing (NLP) Chatbot and live 5-Technique Analysis Dashboard built with **Python, Flask, NLTK, spaCy, HTML5, CSS3, and JavaScript**.
 
-[![Live Website](https://img.shields.io/badge/Live%20Website-Active%20Online-10B981?style=for-the-badge&logo=cloudflare&logoColor=white)](https://asin-ear-leaving-mileage.trycloudflare.com)
+[![Live Vercel Website](https://img.shields.io/badge/Live%20Website-Vercel%20Production-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://nlp-chatbot-phi.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Sachin2716/NLP-Intelligent-Chatbot)
 [![Streamlit Deploy](https://img.shields.io/badge/Deploy%20on-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://share.streamlit.io/deploy?repository=Sachin2716/NLP-Intelligent-Chatbot&branch=main&mainModule=streamlit_app.py)
-[![Render Deploy](https://img.shields.io/badge/Deploy%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/deploy?repo=https://github.com/Sachin2716/NLP-Intelligent-Chatbot)
 
 ---
 
 ### 🌐 Live Access Links
 
-- **🌍 Primary Live Website**: **[https://asin-ear-leaving-mileage.trycloudflare.com](https://asin-ear-leaving-mileage.trycloudflare.com)**
+- **🌍 Primary Live Website (Vercel)**: **[https://nlp-chatbot-phi.vercel.app](https://nlp-chatbot-phi.vercel.app)**
 - **📁 GitHub Source Code**: **[https://github.com/Sachin2716/NLP-Intelligent-Chatbot](https://github.com/Sachin2716/NLP-Intelligent-Chatbot)**
 - **⚡ 1-Click Streamlit Cloud**: **[Deploy to Streamlit Cloud](https://share.streamlit.io/deploy?repository=Sachin2716/NLP-Intelligent-Chatbot&branch=main&mainModule=streamlit_app.py)**
-- **🚀 1-Click Render Blueprint**: **[Deploy to Render Blueprint](https://render.com/deploy?repo=https://github.com/Sachin2716/NLP-Intelligent-Chatbot)**
 
 > **100% Local Processing & Zero External AI APIs**: Operates completely offline without OpenAI, Gemini, Hugging Face, or paid cloud AI APIs. All NLP processing is executed locally on-device.
 
@@ -198,22 +196,20 @@ http://127.0.0.1:5000
 
 ---
 
-## Live Deployment Options
+## Live Deployment
 
-### Option 1: Deploy to Render (Recommended Free Hosting)
-1. Fork or push this repository to your GitHub account: `https://github.com/Sachin2716/NLP-Intelligent-Chatbot`.
-2. Visit [Render.com](https://render.com) and log in.
-3. Click **New +** → **Blueprint** (or **Web Service**).
-4. Select the `NLP-Intelligent-Chatbot` repository.
-5. Render detects `render.yaml` automatically:
-   - **Build Command**: `pip install -r requirements.txt && python setup_nltk.py`
-   - **Start Command**: `gunicorn app:app`
-6. Click **Deploy**. Your live URL will be active in minutes (e.g., `https://nlp-intelligent-chatbot.onrender.com`).
+### Production Deployment: Vercel (Live URL)
 
-### Option 2: Deploy to Vercel
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run `vercel` in the project root.
-3. The project includes `vercel.json` configured for serverless Python WSGI execution.
+The application is deployed on Vercel with optimized serverless Python execution and bundled local NLP datasets:
+
+- **Live URL**: [https://nlp-chatbot-phi.vercel.app](https://nlp-chatbot-phi.vercel.app)
+- **Deployment Configuration**: `vercel.json` maps incoming traffic directly to `api/index.py` using Vercel Services.
+- **Offline Guarantee**: Zero external AI API calls; local NLTK datasets provide instant tokenization, stemming, lemmatization, NER, and sentiment analysis.
+
+```bash
+# To deploy or redeploy using Vercel CLI:
+npx vercel deploy --prod
+```
 
 ---
 

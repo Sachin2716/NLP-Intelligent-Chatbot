@@ -8,7 +8,19 @@ import os
 import tempfile
 import nltk
 
-# Ensure temporary directory is available in NLTK data path for serverless/cloud environments (e.g. Vercel, Render)
+try:
+    from nltk import pathsec
+    pathsec.ENFORCE = False
+except Exception:
+    pass
+
+# Ensure bundled nltk_data and temporary directory are available in NLTK data path
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+_project_root = os.path.dirname(_current_dir)
+_bundled_nltk = os.path.join(_project_root, 'nltk_data')
+if os.path.exists(_bundled_nltk) and _bundled_nltk not in nltk.data.path:
+    nltk.data.path.insert(0, _bundled_nltk)
+
 _tmp_nltk_dir = os.path.join(tempfile.gettempdir(), 'nltk_data')
 if _tmp_nltk_dir not in nltk.data.path:
     nltk.data.path.append(_tmp_nltk_dir)

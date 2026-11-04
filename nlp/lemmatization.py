@@ -8,7 +8,6 @@ import re
 try:
     import nltk
     from nltk.stem import WordNetLemmatizer
-    from nltk.corpus import wordnet
     _LEMMATIZER = WordNetLemmatizer()
     _WORDNET_AVAILABLE = True
 except Exception:
@@ -22,20 +21,17 @@ def _get_wordnet_pos(treebank_tag: str) -> tuple:
     Returns:
         tuple: (wordnet_pos, readable_category)
     """
-    if not _WORDNET_AVAILABLE:
-        return (None, "Word")
-
     if treebank_tag.startswith('J'):
-        return (wordnet.ADJ, "Adjective")
+        return ('a', "Adjective")
     elif treebank_tag.startswith('V'):
-        return (wordnet.VERB, "Verb")
+        return ('v', "Verb")
     elif treebank_tag.startswith('N'):
-        return (wordnet.NOUN, "Noun")
+        return ('n', "Noun")
     elif treebank_tag.startswith('R'):
-        return (wordnet.ADV, "Adverb")
+        return ('r', "Adverb")
     else:
         # Default fallback to Noun for content words
-        return (wordnet.NOUN, "Noun")
+        return ('n', "Noun")
 
 
 # Common irregular lookup fallback in case WordNet or POS tag needs a boost
@@ -125,11 +121,20 @@ def lemmatize_text(tokens: list, raw_text: str = "") -> dict:
             lemma_found, irregular_cat = _IRREGULAR_LEMMAS[token_lower]
             category = irregular_cat
 
-        if lemma_found is None and _WORDNET_AVAILABLE and _LEMMATIZER is not None:
-            try:
-                lemma_found = _LEMMATIZER.lemmatize(token_lower, pos=wn_pos)
-            except Exception:
-                lemma_found = token_lower
+        if lemma_found is None:
+            global _LEMMATIZER, _WORDNET_AVAILABLE
+            if _LEMMATIZER is None:
+                try:
+                    from nltk.stem import WordNetLemmatizer
+                    _LEMMATIZER = WordNetLemmatizer()
+                    _WORDNET_AVAILABLE = True
+                except Exception:
+                    pass
+            if _WORDNET_AVAILABLE and _LEMMATIZER is not None:
+                try:
+                    lemma_found = _LEMMATIZER.lemmatize(token_lower, pos=wn_pos)
+                except Exception:
+                    lemma_found = token_lower
 
         if lemma_found is None:
             lemma_found = token_lower
