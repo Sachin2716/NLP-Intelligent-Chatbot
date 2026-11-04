@@ -11,7 +11,7 @@ except Exception:
 import urllib.request
 import json
 
-base_url = 'https://ash-finest-innocent-dad.trycloudflare.com'
+base_url = 'https://asin-ear-leaving-mileage.trycloudflare.com'
 
 print(f"Testing live public website: {base_url}")
 print("=" * 60)
