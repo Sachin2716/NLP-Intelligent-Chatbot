@@ -4,6 +4,15 @@ and generates conversational responses.
 """
 
 from datetime import datetime
+import os
+import tempfile
+import nltk
+
+# Ensure temporary directory is available in NLTK data path for serverless/cloud environments (e.g. Vercel, Render)
+_tmp_nltk_dir = os.path.join(tempfile.gettempdir(), 'nltk_data')
+if _tmp_nltk_dir not in nltk.data.path:
+    nltk.data.path.append(_tmp_nltk_dir)
+
 from .tokenizer import tokenize_text
 from .stemming import stem_text
 from .lemmatization import lemmatize_text

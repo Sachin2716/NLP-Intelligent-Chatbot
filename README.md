@@ -2,6 +2,20 @@
 
 An intelligent, interactive Natural Language Processing (NLP) Chatbot and live 5-Technique Analysis Dashboard built with **Python, Flask, NLTK, spaCy, HTML5, CSS3, and JavaScript**.
 
+[![Live Website](https://img.shields.io/badge/Live%20Website-Active%20Online-10B981?style=for-the-badge&logo=cloudflare&logoColor=white)](https://ash-finest-innocent-dad.trycloudflare.com)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Sachin2716/NLP-Intelligent-Chatbot)
+[![Streamlit Deploy](https://img.shields.io/badge/Deploy%20on-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://share.streamlit.io/deploy?repository=Sachin2716/NLP-Intelligent-Chatbot&branch=main&mainModule=streamlit_app.py)
+[![Render Deploy](https://img.shields.io/badge/Deploy%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/deploy?repo=https://github.com/Sachin2716/NLP-Intelligent-Chatbot)
+
+---
+
+### 🌐 Live Access Links
+
+- **🌍 Primary Live Website**: **[https://ash-finest-innocent-dad.trycloudflare.com](https://ash-finest-innocent-dad.trycloudflare.com)**
+- **📁 GitHub Source Code**: **[https://github.com/Sachin2716/NLP-Intelligent-Chatbot](https://github.com/Sachin2716/NLP-Intelligent-Chatbot)**
+- **⚡ 1-Click Streamlit Cloud**: **[Deploy to Streamlit Cloud](https://share.streamlit.io/deploy?repository=Sachin2716/NLP-Intelligent-Chatbot&branch=main&mainModule=streamlit_app.py)**
+- **🚀 1-Click Render Blueprint**: **[Deploy to Render Blueprint](https://render.com/deploy?repo=https://github.com/Sachin2716/NLP-Intelligent-Chatbot)**
+
 > **100% Local Processing & Zero External AI APIs**: Operates completely offline without OpenAI, Gemini, Hugging Face, or paid cloud AI APIs. All NLP processing is executed locally on-device.
 
 ---

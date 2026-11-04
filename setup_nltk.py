@@ -32,11 +32,26 @@ def setup_all():
     print("Setting up local NLP resources for SMART NLP Chatbot...")
     print("=" * 60)
 
+    import os
+    import tempfile
+    target_dir = None
+    try:
+        test_dir = nltk.data.path[0]
+        os.makedirs(test_dir, exist_ok=True)
+    except Exception:
+        target_dir = os.path.join(tempfile.gettempdir(), 'nltk_data')
+        os.makedirs(target_dir, exist_ok=True)
+        if target_dir not in nltk.data.path:
+            nltk.data.path.append(target_dir)
+
     success_count = 0
     for pkg in REQUIRED_PACKAGES:
         try:
             print(f"Checking / downloading '{pkg}'...")
-            nltk.download(pkg, quiet=True)
+            if target_dir:
+                nltk.download(pkg, download_dir=target_dir, quiet=True)
+            else:
+                nltk.download(pkg, quiet=True)
             success_count += 1
             print(f"  [OK] '{pkg}' ready.")
         except Exception as e:
